@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">HorseChallenge</string>
+
+    <string name="title">Horse Challenge</string>
+    <string name="level">Level</string>
+    <string name="moves">Moves</string>
+    <string name="time">Time</string>
+    <string name="lives">Lives</string>
+    <string name="options">Options</string>
+    <string name="instrucciones">Move the horse over board to complete all cellls.</string>
+    <string name="credits">Game created by Wilmer Agudelo</string>
+
+    <string name="premium">Tap here to remove ads, get more levelrs and unlimited lives</string>
+    <string name="premiumTitle">Get Premium Access Forever</string>
+    <string name="premiumBenefit1">No More Ads</string>
+    <string name="PremiumBenefit2">Unlimited Lives</string>
+    <string name="PremiumBenefit3">Keep your reached level</string>
+    <string name="pay">PAY ONLY 1$ NOW</string>
+</resources>
