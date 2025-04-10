@@ -7,7 +7,7 @@
 ERRORES
 . redimensionado del tablero - que se pueda ver en cualquier dispositico de la manera correcta
 . quetar la action bar---este punto ya quedo listo
-.
+. mostrar opciones de movimiento
 .
 .
 .
@@ -19,6 +19,7 @@ MEJORA DE UX
 .
 
 FUNCIONALIDADES
+. incio aleatorio
 . poder mover el caballo (comprobando el movimiento de L)
 . pintar niveles (y limpiarlos)
 . control de movimientos
