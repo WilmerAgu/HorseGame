@@ -5,10 +5,12 @@ import android.graphics.Color
 import android.graphics.Point
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.TextureView
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -20,7 +22,10 @@ class MainActivity : AppCompatActivity() {
     private var cellSelected_x = 0
     private var cellSelected_y = 0
 
+    private var moves = 64
     private var options = 0
+    private var nameColorBlack = "black_cell"
+    private var nameColorWhite = "white_cell"
 
     private lateinit var board: Array<IntArray>
 
@@ -36,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         }
         initScreenGame()
-        resetboard()
+        resetBoard()
         setFirstPosition()
 
     }
@@ -69,7 +74,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun resetboard(){
+    private fun resetBoard(){
 
         //0 esta libre
         //1 casilla marcada
@@ -108,25 +113,51 @@ class MainActivity : AppCompatActivity() {
         cellSelected_x = x
         cellSelected_y = y
 
-        paintHorseCell(x, y, "selected_cell")
+        clearOptions()
 
+        paintHorseCell(x, y, "selected_cell")
         checkOption(x, y )
 
     }
+  private fun clearOption(x:Int, y:Int){
 
-    private  fun checkOption(x: Int, y:Int){
+        var iv: ImageView = findViewById(resources.getIdentifier("c$x$y", "id", packageName))
+        if (checKColorCell(x, y) == "black")
+            iv.setBackgroundColor(ContextCompat.getColor(this,
+                resources.getIdentifier(nameColorBlack, "color", packageName)))
+        else
+            iv.setBackgroundColor(ContextCompat.getColor(this,
+                resources.getIdentifier(nameColorWhite, "color", packageName)))
+        if (board[x][y] ==1) iv.setBackgroundColor(ContextCompat.getColor(this,
+                resources.getIdentifier("previus_cell", "color", packageName)))
+    }
+    private fun clearOptions(){
+        for (i in 0..7){
+            for (j in 0..7){
+                if (board[i][j] == 9 || board[i][j]== 2){
+                    if (board[i][j] == 9) board[i][j] = 0
+                    clearOption(i, j)
+                }
+            }
+        }
+    }
+
+    private fun checkOption(x: Int, y:Int){
          options = 0
 
-        checkMovie(x, y, 1, 2)   //check move right -top long
-        checkMovie(x, y, 2, 1)   //check move right long - top
-        checkMovie(x, y, 1, -2)  //check move right - bottom long
-        checkMovie(x, y, 2, -1)  //check move right long - bottom
-        checkMovie(x, y, -1, 2)  //check move left - top long
-        checkMovie(x, y, -2, 1)  //check move left long - top
-        checkMovie(x, y, -1, -2) //check move left - bottom long
-        checkMovie(x, y, -2, -1) //check move left long - bottom
+        checkMove(x, y, 1, 2)   //check move right -top long
+        checkMove(x, y, 2, 1)   //check move right long - top
+        checkMove(x, y, 1, -2)  //check move right - bottom long
+        checkMove(x, y, 2, -1)  //check move right long - bottom
+        checkMove(x, y, -1, 2)  //check move left - top long
+        checkMove(x, y, -2, 1)  //check move left long - top
+        checkMove(x, y, -1, -2) //check move left - bottom long
+        checkMove(x, y, -2, -1) //check move left long - bottom
+
+        var tvOptionsData = findViewById<TextView>(R.id.tvOptionsData)
+        tvOptionsData.text = options.toString()
     }
-    private fun checkMovie(x: Int, y:Int, mov_x: Int, mov_y: Int){
+    private fun checkMove(x: Int, y:Int, mov_x: Int, mov_y: Int){
         var option_x = x + mov_x
         var option_y = y + mov_y
 
@@ -143,7 +174,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-    private fun checColorCell(x: Int, y: Int): String{
+    private fun checKColorCell(x: Int, y: Int): String{
         var color= ""
         var blackColumn_x = arrayOf(0,2,4,6)
         var blackRow_x = arrayOf(1,3,5,7)
@@ -157,7 +188,7 @@ class MainActivity : AppCompatActivity() {
 
     private  fun paintOptions(x: Int, y:Int){
         var iv: ImageView = findViewById(resources.getIdentifier("c$x$y", "id", packageName))
-        if (checColorCell(x, y) == "black") iv.setBackgroundResource(R.drawable.option_black)
+        if (checKColorCell(x, y) == "black") iv.setBackgroundResource(R.drawable.option_black)
     else iv.setBackgroundResource(R.drawable.option_white)}
 
     private  fun paintHorseCell(x: Int,y: Int, color: String){
